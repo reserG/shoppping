@@ -1,11 +1,10 @@
 package com.example.common.entity;
 
 import com.example.common.enums.Constants;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -13,10 +12,14 @@ import java.util.Date;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Logininfo implements Serializable {
+@Data
+public class LoginInfo implements Serializable {
 
     private Long id;
     private String nickname;
+
+    @NotNull(message = "商品名称不允许为空")
+    private String phone;
     private String password;
     private String salt;
     private Date registerDate;

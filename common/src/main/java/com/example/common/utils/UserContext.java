@@ -1,23 +1,32 @@
 package com.example.common.utils;
 
+import com.example.common.entity.LoginInfo;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
-import com.geekq.miasha.entity.MiaoshaUser;
+import javax.servlet.http.HttpServletRequest;
 
+/**
+ * @author 邱润泽
+ * <p>
+ * thread local 底层实现方法 和 UserContext 类似 本质上都是 每个线程工作都在自己的实例线程上拷贝
+ */
 public class UserContext {
 
-    private static ThreadLocal<MiaoshaUser> userHolder = new ThreadLocal<MiaoshaUser>();
+    public static final String LOGIN_IN_SESSION = "logininfo";
 
-    public static MiaoshaUser getUser() {
-
-        return userHolder.get();
+    private static HttpServletRequest getRequest() {
+        return ((ServletRequestAttributes) RequestContextHolder
+                .getRequestAttributes()).getRequest();
     }
 
-    public static void setUser(MiaoshaUser user) {
-        userHolder.set(user);
+    public static void putLogininfo(LoginInfo logininfo) {
+        getRequest().getSession().setAttribute(LOGIN_IN_SESSION, logininfo);
     }
 
-    public static void removeUser() {
-        userHolder.remove();
+    public static LoginInfo getCurrent() {
+        return (LoginInfo) getRequest().getSession().getAttribute(
+                LOGIN_IN_SESSION);
     }
 
 }

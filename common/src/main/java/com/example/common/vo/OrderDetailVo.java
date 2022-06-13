@@ -1,6 +1,6 @@
 package com.example.common.vo;
 
-import com.geekq.miasha.entity.OrderInfo;
+import com.example.common.entity.OrderInfo;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

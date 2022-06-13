@@ -1,7 +1,7 @@
 package com.example.common.exception;
 
 
-import com.geekq.miasha.enums.enums.ResultStatus;
+import com.example.common.enums.ResultStatus;
 
 public class GlobleException extends RuntimeException {
 

@@ -1,10 +1,11 @@
 package com.example.common.validator;
 
-import com.geekq.miasha.utils.ValidatorUtil;
+import com.example.common.utils.ValidatorUtil;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
+
 
 public class MobileValidator implements ConstraintValidator<MobileCheck, String> {
 

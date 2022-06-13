@@ -14,7 +14,7 @@
         <version>0.0.1-SNAPSHOT</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-
+    <packaging>pom</packaging>
     <groupId>com.example</groupId>
     <artifactId>seckill</artifactId>
     <version>0.0.1-SNAPSHOT</version>
@@ -27,7 +27,6 @@
     <modules>
         <module>seckill-api</module>
         <module>seckill-provider</module>
-        <module>seckill-service</module>
         <module>seckill-controller</module>
     </modules>
 
