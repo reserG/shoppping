@@ -29,11 +29,12 @@ public class AbstractResult {
 
     public AbstractResult withError(ResultStatus status) {
         this.status = status;
+        this.code = status.getCode();
+        this.message = status.getMessage();
         return this;
     }
 
     public AbstractResult withError(String message) {
-        this.status = ResultStatus.SYSTEM_ERROR;
         this.message = message;
         return this;
     }

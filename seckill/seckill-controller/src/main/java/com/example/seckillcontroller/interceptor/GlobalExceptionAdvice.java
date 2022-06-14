@@ -1,5 +1,6 @@
 package com.example.seckillcontroller.interceptor;
 
+import com.example.common.enums.ResultStatus;
 import com.example.common.exception.GlobleException;
 import com.example.common.utils.resultbean.ResultMAX;
 import org.slf4j.Logger;
@@ -44,7 +45,11 @@ public class GlobalExceptionAdvice {
         String msg = error.getDefaultMessage();
 
         logger.error(String.format(msg, msg));
-        return ResultMAX.error(SESSION_ERROR);
+        ResultMAX resultMAX = ResultMAX.error(ResultStatus.BIND_ERROR);
+        resultMAX.withError(msg);
+        return resultMAX;
     }
+
+
 
 }

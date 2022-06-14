@@ -21,7 +21,6 @@ public class LoginServiceImp implements LoginService {
         if (loginUser != null) {
             String pwd = MD5Utils.formPassToDBPass(loginInfo.getPassword(),loginInfo.getSalt());
         }
-        result.withError(ResultStatus.LOGIN_FIAL);
         return result;
     }
 }

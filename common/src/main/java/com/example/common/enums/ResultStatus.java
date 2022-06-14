@@ -14,8 +14,6 @@ package com.example.common.enums;
 public enum ResultStatus {
     SUCCESS(0, "成功"),
     FAILD(-1, "失败"),
-    EXCEPTION(-1, "系统异常"),
-    PARAM_ERROR(10000, "参数错误"),
     SYSTEM_ERROR(10001, "系统错误"),
     FILE_NOT_EXIST(10002, "文件不存在"),
     FILE_NOT_DOWNLOAD(10003, "文件没有下载"),

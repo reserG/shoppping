@@ -14,8 +14,11 @@ import java.io.Serializable;
 @Data
 public class BaseDomain implements Serializable {
 
-    @NotNull(message = "商品名称不允许为空")
+
     protected Long id;
+
+    @NotNull(message = "商品名称不允许为空")
+    private String name;
 
     @Min(value = 0,message = "不小于0")
     private int price;
