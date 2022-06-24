@@ -17,7 +17,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         super.addInterceptors(registry);
-//        registry.addInterceptor(myAnntaHandler).addPathPatterns("/**").excludePathPatterns(notLoginInterceptPaths);
+        registry.addInterceptor(myAnntaHandler).addPathPatterns("/**").excludePathPatterns(notLoginInterceptPaths);
 //        registry.addInterceptor(interceptor);
     }
 

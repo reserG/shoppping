@@ -56,9 +56,9 @@ public enum ResultStatus {
     /**
      * 秒杀模块
      */
-    MIAO_SHA_OVER(40001, "商品已经秒杀完毕"),
-    REPEATE_MIAOSHA(40002, "不能重复秒杀"),
-    MIAOSHA_FAIL(40003, "秒杀失败");
+    SECKILL_OVER(40001, "商品已经秒杀完毕"),
+    REPEATE_SECKILL(40002, "每个ID只可参与活动一次,您已经参加过本次活动"),
+    SECKILL_FAIL(40003, "抱歉,您没有抢到,请再次尝试!");
 
     /**
      * 商品模块

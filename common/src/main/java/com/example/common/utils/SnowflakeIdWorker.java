@@ -129,11 +129,7 @@ public class SnowflakeIdWorker {
             System.out.println(id);
             System.out.println(Long.toBinaryString(id).length());
         }
-//        long id = idWorker.nextId();
-//        System.out.println(Long.toBinaryString(id));
-//        System.out.println(id);
-//        System.out.println(Long.toBinaryString(4095));
-//        System.out.println(Long.toBinaryString(4096));
+        System.out.println(Long.toBinaryString(4095));
     }
 
     /**
@@ -166,14 +162,10 @@ public class SnowflakeIdWorker {
 
         //上次生成ID的时间截
         lastTimestamp = timestamp;
-        System.out.println(Long.toBinaryString((timestamp - twepoch) << timestampLeftShift) + "    " + Long.toBinaryString((timestamp - twepoch) << timestampLeftShift).length());
-        System.out.println(datacenterId << datacenterIdShift);
-        System.out.println(workerId << workerIdShift);
-        System.out.println(sequence);
         System.out.println(Long.toBinaryString(((timestamp - twepoch) << timestampLeftShift) //
                 | (datacenterId << datacenterIdShift) //
                 | (workerId << workerIdShift) //
-                | sequence) + "  最终id  " + Long.toBinaryString(((timestamp - twepoch) << timestampLeftShift) //
+                | sequence) + "  最终id length " + Long.toBinaryString(((timestamp - twepoch) << timestampLeftShift) //
                 | (datacenterId << datacenterIdShift) //
                 | (workerId << workerIdShift) //
                 | sequence).length());

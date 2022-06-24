@@ -12,4 +12,5 @@ public class Test {
     @NotNull(message = "不能为空name")
     private String name;
 
+
 }

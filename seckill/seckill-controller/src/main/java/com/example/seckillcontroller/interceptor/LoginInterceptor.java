@@ -1,7 +1,7 @@
 package com.example.seckillcontroller.interceptor;
 
 import com.alibaba.fastjson.JSON;
-import com.example.seckillcontroller.annotation.MyAnnotationHandler;
+import com.example.seckillcontroller.annotation.RequireLogin;
 import org.springframework.stereotype.Service;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -38,7 +38,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 //				return super.preHandle(request, response, handler);
 //			}
             //获取注解
-            MyAnnotationHandler accessLimit = hm.getMethodAnnotation(MyAnnotationHandler.class);
+            RequireLogin accessLimit = hm.getMethodAnnotation(RequireLogin.class);
             if (accessLimit == null) {
                 return true;
             }
@@ -101,10 +101,10 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
         super.afterCompletion(request, response, handler, ex);
     }
 
-    private void render(HttpServletResponse response, String msg) throws Exception {
+    private void render(HttpServletResponse response, Object o) throws Exception {
         response.setContentType("application/json;charset=UTF-8");
         OutputStream out = response.getOutputStream();
-        String str = JSON.toJSONString(new String(msg));
+        String str = JSON.toJSONString(o);
         out.write(str.getBytes("UTF-8"));
         out.flush();
         out.close();

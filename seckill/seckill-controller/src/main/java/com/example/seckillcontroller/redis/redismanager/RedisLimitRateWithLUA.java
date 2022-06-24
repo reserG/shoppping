@@ -10,10 +10,26 @@ import java.util.concurrent.CountDownLatch;
 
 public class RedisLimitRateWithLUA {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         final CountDownLatch latch = new CountDownLatch(1);
 
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 10; i++) {
+            new Thread(new Runnable() {
+                public void run() {
+                    try {
+                        latch.await();
+                        System.out.println("请求是否被执行：" + accquire());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
+
+        }
+
+        latch.countDown();
+        Thread.sleep(2000);
+        for (int i = 0; i < 10; i++) {
             new Thread(new Runnable() {
                 public void run() {
                     try {
@@ -45,12 +61,12 @@ public class RedisLimitRateWithLUA {
                         " end return 1 ";
 
         String key = "ip:" + System.currentTimeMillis() / 1000; // 当前秒
-        String limit = "3"; // 最大限制
+        String limit = "5"; // 最大限制
         List<String> keys = new ArrayList<String>();
         keys.add(key);
         List<String> args = new ArrayList<String>();
         args.add(limit);
-        jedis.auth("youxin11");
+//        jedis.auth("youxin11");
         String luaScript = jedis.scriptLoad(lua);
         Long result = (Long) jedis.evalsha(luaScript, keys, args);
         return result == 1;

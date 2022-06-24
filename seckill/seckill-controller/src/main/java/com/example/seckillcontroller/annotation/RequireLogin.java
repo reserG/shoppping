@@ -11,7 +11,7 @@ import static java.lang.annotation.ElementType.METHOD;
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target(METHOD)
-public @interface MyAnnotationHandler {
+public @interface RequireLogin {
     int seconds();
 
     int maxCount();

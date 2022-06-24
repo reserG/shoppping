@@ -50,9 +50,21 @@ public class DateTimeUtils {
 
     public static void main(String[] args) {
         System.out.println(new Date());
+        System.out.println(System.nanoTime());
+        System.out.println(System.currentTimeMillis());
+        Date start = new Date();
+
+        Long starttime = System.currentTimeMillis();
         System.out.println(DateTimeUtils.dateToStr(new Date(), "yyyy-MM-dd HH:mm:ss"));
         System.out.println(DateTimeUtils.strToDate("2010-01-01 11:11:11", "yyyy-MM-dd HH:mm:ss"));
+        System.out.println(System.currentTimeMillis());
+        Long endtime = System.currentTimeMillis();
+        System.out.println(endtime - starttime);
+//        Date start = DateTimeUtils.strToDate("2010-01-01 11:11:11", "yyyy-MM-dd HH:mm:ss");
+//        Date end = DateTimeUtils.strToDate("2010-01-01 11:11:13", "yyyy-MM-dd HH:mm:ss");
+        Date end = new Date();
 
+        System.out.println(end.getTime() - start.getTime());
     }
 
 
