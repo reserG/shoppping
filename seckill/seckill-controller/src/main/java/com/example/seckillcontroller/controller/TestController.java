@@ -1,19 +1,20 @@
 package com.example.seckillcontroller.controller;
 
-import com.example.common.entity.BaseDomain;
-import com.example.common.entity.LoginInfo;
 import com.example.common.entity.SeckillUser;
 import com.example.common.entity.Test;
 import com.example.common.enums.ResultStatus;
 import com.example.common.exception.GlobleException;
 import com.example.common.utils.resultbean.ResultMAX;
 import com.example.seckillcontroller.annotation.MyAnnotation;
+import com.example.seckillcontroller.rabbitmq.MQSender;
+import com.example.seckillcontroller.rabbitmq.MessageX;
 import com.example.seckillcontroller.redis.GoodsKey;
 import com.example.seckillcontroller.redis.RedisService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -22,9 +23,12 @@ import java.util.Date;
 
 @RestController
 public class TestController {
+    private static final Logger log = LoggerFactory.getLogger(TestController.class);
 
     @Autowired
     RedisService redisService;
+    @Autowired
+    MQSender mqSender;
 
     @PostMapping("/method1")
     Object test1() {
@@ -54,7 +58,14 @@ public class TestController {
 
     @PostMapping("/method6")
     Object test6(@NotNull(message = "用户id不能为空") Long userId) {
-        redisService.set(GoodsKey.getGoodsDetail,"1","132");
+        redisService.set(GoodsKey.getGoodsDetail, "1", "132");
         return "hahh";
+    }
+
+    @PostMapping("/testRabbitMQ")
+    void testRabbitMQ(String msg, int delay) {
+        log.info("请求到达control");
+        mqSender.sendMiaoshaMessage(new MessageX(new SeckillUser(), Long.valueOf(msg), delay));
+//        return "success";
     }
 }

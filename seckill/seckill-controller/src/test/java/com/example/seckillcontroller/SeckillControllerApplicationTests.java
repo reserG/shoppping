@@ -21,10 +21,10 @@ class SeckillControllerApplicationTests {
         Jedis jedis = null;
         jedis = jedisPool.getResource();
             jedis.set("9797979797971", "!@3213");
-//        if (jedis != null) {
-//            jedis.close();
-//        }
-        jedisPool.returnResource(jedis);
+        if (jedis != null) {
+            jedis.close();
+        }
+
     }
 
 

@@ -4,6 +4,8 @@ import com.example.common.utils.JsonUtils;
 import com.example.common.utils.resultbean.ResultMAX;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.server.ServerHttpRequest;
@@ -13,18 +15,26 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 @RestControllerAdvice
 public class GlobalResultAdvice implements ResponseBodyAdvice {
+    private static final Logger log = LoggerFactory.getLogger(GlobalResultAdvice.class);
+
+
     @Override
     public boolean supports(MethodParameter returnType, Class converterType) {
-        System.out.println("returnType.getParameterType()  "  +  returnType.getParameterType());
+        System.out.println("returnType.getParameterType()  " + returnType.getParameterType());
         return !returnType.getParameterType().isAssignableFrom(ResultMAX.class);
     }
 
     @Override
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
-        System.out.println("输出body内容     =  " + body.toString() );
+        if (body == null) {
+            log.info("body null");
+            return null;
+        }
+
+        System.out.println("输出body内容     =  " + body.toString());
 
         if (returnType.getGenericParameterType().equals(String.class)) {
-            System.out.println("输出body内容     =  " + body.toString() );
+            System.out.println("输出body内容     =  " + body.toString());
             ObjectMapper objectMapper = new ObjectMapper();
             ResultMAX<String> resultMAX = ResultMAX.build();
             resultMAX.setData(body.toString());

@@ -2,6 +2,8 @@ package com.example.seckillcontroller.interceptor;
 
 import com.alibaba.fastjson.JSON;
 import com.example.seckillcontroller.annotation.RequireLogin;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -13,6 +15,7 @@ import java.net.InetAddress;
 
 @Service
 public class LoginInterceptor extends HandlerInterceptorAdapter {
+    private static final Logger log = LoggerFactory.getLogger(LoginInterceptor.class);
 
 
     @Override
@@ -24,8 +27,8 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
         /**
          * 获取调用 获取主要方法
          */
-        System.out.println( " getIP  " +   getIP(request));
-        System.out.println(" getRealIp  " +   getRealIp(request));
+        System.out.println(" getIP  " + getIP(request));
+        System.out.println(" getRealIp  " + getRealIp(request));
         if (handler instanceof HandlerMethod) {
             System.out.println("打印拦截方法handler ：{}" + handler);
             System.out.println(((HandlerMethod) handler).getMethodParameters().length);
@@ -40,6 +43,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
             //获取注解
             RequireLogin accessLimit = hm.getMethodAnnotation(RequireLogin.class);
             if (accessLimit == null) {
+                log.info("此请求无需登录");
                 return true;
             }
             //获取注解上的参数
@@ -52,44 +56,44 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
                 //校验是否登录
             }
             //前置条件是否满足
-            if (true){
-                render(response,"success");
+            if (true) {
+                render(response, "success");
                 return true;
-            }else {
-                render(response,"error");
+            } else {
+                render(response, "error");
                 return false;
             }
         }
         return true;
     }
 
-    public static String getIP(HttpServletRequest request){
+    public static String getIP(HttpServletRequest request) {
         String ip = request.getRemoteAddr();
         String headerIP = request.getHeader("x-real-ip");
-        if(headerIP == null || "".equals(headerIP) || "null".equals(headerIP)){
+        if (headerIP == null || "".equals(headerIP) || "null".equals(headerIP)) {
             headerIP = request.getHeader("x-forwarded-for");
         }
-        System.out.println("headerIP:"+headerIP);
-        if(headerIP !=null && !"".equals(headerIP) && !"null".equals(headerIP)){
+        System.out.println("headerIP:" + headerIP);
+        if (headerIP != null && !"".equals(headerIP) && !"null".equals(headerIP)) {
             ip = headerIP;
         }
         return ip;
     }
 
 
-    public static String getRealIp(HttpServletRequest request){
+    public static String getRealIp(HttpServletRequest request) {
         String ip;
         // 有的user可能使用代理，为处理用户使用代理的情况，使用x-forwarded-for
-        if  (request.getHeader("x-forwarded-for") == null)  {
+        if (request.getHeader("x-forwarded-for") == null) {
             ip = request.getRemoteAddr();
-        }  else  {
+        } else {
             ip = request.getHeader("x-forwarded-for");
         }
-        if  ("127.0.0.1".equals(ip))  {
+        if ("127.0.0.1".equals(ip)) {
             try {
                 // 获取本机真正的ip地址
                 ip = InetAddress.getLocalHost().getHostAddress();
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }

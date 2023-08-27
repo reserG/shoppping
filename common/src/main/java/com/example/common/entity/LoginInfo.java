@@ -3,7 +3,6 @@ package com.example.common.entity;
 import com.example.common.enums.Constants;
 import lombok.*;
 
-import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
